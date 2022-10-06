@@ -3,11 +3,13 @@ import './Popup.css';
 import {useRef, useEffect} from 'react';
 const Popup = (props) => {
     const ref = useRef(null)
-    const handleClick = () => {
-        props.toggle();
-    };
 
     useEffect(() => {
+
+        const handleClick = () => {
+            props.toggle();
+        };
+        
         const handleClickOutside = (e) => {
             if(ref.current && !ref.current.contains(e.target)){
                 handleClick();
