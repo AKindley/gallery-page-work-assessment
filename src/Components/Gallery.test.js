@@ -1,9 +1,7 @@
-import './App.css';
-import Gallery from './Components/Gallery';
+import { render, screen } from '@testing-library/react';
+import Gallery from './gallery';
 
-function App() {
-  
-  const arrGenerator = (n, col) => { //For demonstrating dynamic component creation (number of pictures, columns per row)
+const arrGenerator = (n, col) => { //For demonstrating dynamic component creation (number of pictures, columns per row)
     let array = [];
     let data = [];
     let src = ''
@@ -22,6 +20,14 @@ function App() {
         title : 'LOREM IPSUM'
       });
     }
+    array.push({
+        id : 1337,
+        imgSrc : "https://via.placeholder.com/200x150",
+        description : 'test me',
+        alt : 'last image',
+        title : 'TEST TITLE'        
+    });
+
     let j = 0;
         while(array.length){
             data.push({
@@ -33,12 +39,15 @@ function App() {
     return(data);
   };
 
-  const rows = arrGenerator(57, 4); //The intention with this demo data is to show the dynamic components. Realistically this would be imported or fetched data. 
-  return (
-    <div className='App'>
-      <Gallery data={rows}/>
-    </div>
-  );
-}
+test('renders full gallery correctly', () => {
+    const rows = arrGenerator(24, 4);
 
-export default App;
+    render(<Gallery data={rows}/>);
+    const demoText = screen.queryAllByText('LOREM IPSUM');
+    const lastImg = screen.queryByAltText('last image');
+    expect(demoText[0]).toBeInTheDocument();
+    expect(lastImg).toBeInTheDocument();
+    expect(demoText.length).toBe(24);
+
+  });
+  

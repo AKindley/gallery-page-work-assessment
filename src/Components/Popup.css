@@ -1,0 +1,12 @@
+.modal_content {
+    background-color: white;
+    position: absolute;
+    box-shadow: 2px 2px 5px black;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 1;
+    max-width: 580px;
+    margin-left: -200px;
+    margin-top: 40px;
+    cursor: pointer;
+}
